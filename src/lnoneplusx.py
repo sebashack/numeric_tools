@@ -12,7 +12,7 @@ def exec_taylor():
         print(f"iter={i}")
 
         next_result = math.pow(0.1, i) / i
-        if (i % 2 == 0):
+        if i % 2 == 0:
             accum = accum - next_result
             print(f"subf(x)={accum}")
         else:

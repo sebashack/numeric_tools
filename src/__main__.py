@@ -1,16 +1,15 @@
 import sys
-import baseconvert
-from oneoveroneminusx import exec_taylor
+import math
 
-
-def base(num, inbase, outbase):
-    return baseconvert.base(num, inbase, outbase, string=True)
+from incremental_search import incremental_search
 
 
 def main(argv):
-    # exec_taylor()
-    # base(number, input_base, output_base)
-    print(base("55.1231923", 10, 2))
+    def f(x):
+        v = math.pow(x, 3) - math.pow(x, 2) + (3 * x) - 2
+        return v
+
+    incremental_search(f, 0, 0.001, 100000)
 
 
 if __name__ == "__main__":

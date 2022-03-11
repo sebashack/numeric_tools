@@ -4,3 +4,6 @@
 - https://www.symbolab.com/solver/derivative-calculator/derivative%20ln(1%2Bx)?or=gms
 - https://www.wolframalpha.com/widgets/view.jsp?id=f9476968629e1163bd4a3ba839d60925
 - https://www.emathhelp.net/en/calculators/calculus-1/taylor-and-maclaurin-series-calculator/?f=ln%281%2Bx%29&p=0&n=5&v=
+
+# ROOTS
+- https://www.wolframalpha.com/calculators/equation-solver-calculator

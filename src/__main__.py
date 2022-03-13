@@ -1,8 +1,9 @@
 import sys
 import math
 
-from incremental_search import incremental_search
 from bisection import bisection
+from false_rule import false_rule
+from incremental_search import incremental_search
 
 
 def main(argv):
@@ -16,6 +17,7 @@ def main(argv):
 
     # incremental_search(f, -10, 1, 240)
     bisection(g, 3, 3.5, (5 * math.pow(10, -5)))
+    false_rule(g, 3, 3.5, (5 * math.pow(10, -5)))
 
 
 if __name__ == "__main__":

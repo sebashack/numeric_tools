@@ -4,7 +4,7 @@ import math
 from bisection import bisection
 from false_rule import false_rule
 from incremental_search import incremental_search
-from fun_plot import plot
+from fixed_point import fixed_point
 
 
 def main(argv):
@@ -17,9 +17,18 @@ def main(argv):
         return v
 
     # incremental_search(f, -10, 1, 240)
-    bisection(g, 3, 3.5, (5 * math.pow(10, -5)))
+    # bisection(g, 3, 3.5, (5 * math.pow(10, -5)))
     # false_rule(g, 3, 3.5, (5 * math.pow(10, -5)))
-    plot((-3, 10), 0.001, g)
+
+    def w(x):
+        v = (x * math.pow(math.e, x)) - math.pow(x, 2) - (5 * x) - 3
+        return v
+
+    def h(x):
+        v = (x * math.pow(math.e, x)) - math.pow(x, 2) - 3
+        return v / 5
+
+    fixed_point(w, h, -0.5, 5 * math.pow(10, -5), 10, False)
 
 
 if __name__ == "__main__":

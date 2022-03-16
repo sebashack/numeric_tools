@@ -30,6 +30,6 @@ def fixed_point(f, g, x0, tol, n, with_abs_err=True):
     if fx == 0:
         print(f"{i} -- f({x}) = {fx} -- exact root")
     elif error < tol:
-        print(f"{i} -- f({x}) = {fx} -- abs_err = {abs_err} -- rel_err = {rel_err}")
+        print(f"{i} -- f({x}) = {fx} -- err = {abs_err} -- rel_err = {rel_err}")
     else:
         print(f"{i} -- Failed")

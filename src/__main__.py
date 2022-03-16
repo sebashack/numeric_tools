@@ -17,18 +17,19 @@ def main(argv):
         return v
 
     # incremental_search(f, -10, 1, 240)
-    # bisection(g, 3, 3.5, (5 * math.pow(10, -5)))
-    # false_rule(g, 3, 3.5, (5 * math.pow(10, -5)))
+    # bisection(f, 2, 3, (0.5 * math.pow(10, -3)), True)
+    bisection(f, 2, 3, (5 * math.pow(10, -10)), False)
+    false_rule(f, 2, 3, (5 * math.pow(10, -10)), False)
 
-    def w(x):
-        v = (x * math.pow(math.e, x)) - math.pow(x, 2) - (5 * x) - 3
-        return v
+    # def w(x):
+    #     v = (x * math.pow(math.e, x)) - math.pow(x, 2) - (5 * x) - 3
+    #     return v
 
-    def h(x):
-        v = (x * math.pow(math.e, x)) - math.pow(x, 2) - 3
-        return v / 5
+    # def h(x):
+    #     v = (x * math.pow(math.e, x)) - math.pow(x, 2) - 3
+    #     return v / 5
 
-    fixed_point(w, h, -0.5, 5 * math.pow(10, -5), 10, False)
+    # fixed_point(w, h, -0.5, 5 * math.pow(10, -5), 10, False)
 
 
 if __name__ == "__main__":

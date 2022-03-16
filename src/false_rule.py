@@ -1,7 +1,4 @@
-import math
-
-
-def false_rule(f, xlo, xup, tol):
+def false_rule(f, xlo, xup, tol, with_abs_err=True):
     fxlo = f(xlo)
     fxup = f(xup)
     i = 0
@@ -14,9 +11,12 @@ def false_rule(f, xlo, xup, tol):
         xm = xlo - ((fxlo * (xup - xlo)) / (fxup - fxlo))
         fxm = f(xm)
         i = 1
-        error = tol + 1
+        abs_err = tol + 1
+        rel_err = abs_err
+        error = abs_err
 
         while error >= tol and fxm != 0:
+            # print(f"{i} -- f({xm}) = {fxm} -- err = {abs_err} -- rel_err = {rel_err}")
             if fxlo * fxm < 0:
                 xup = xm
                 fxup = fxm
@@ -27,12 +27,19 @@ def false_rule(f, xlo, xup, tol):
             xtemp = xm
             xm = xlo - ((fxlo * (xup - xlo)) / (fxup - fxlo))
             fxm = f(xm)
-            error = abs(xm - xtemp)
+            abs_err = abs(xm - xtemp)
+            rel_err = abs_err / abs(xm)
+
+            if with_abs_err:
+                error = abs_err
+            else:
+                error = rel_err
+
             i = i + 1
 
         if fxm == 0:
             print(f"{i} -- f({xm}) = {fxm} -- exact root")
         elif error < tol:
-            print(f"{i} -- f({xm}) = {fxm} -- error = {error}")
+            print(f"{i} -- f({xm}) = {fxm} -- err = {abs_err} -- rel_err = {rel_err}")
     else:
         print("Invalid interval")

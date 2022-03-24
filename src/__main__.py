@@ -5,31 +5,40 @@ from bisection import bisection
 from false_rule import false_rule
 from incremental_search import incremental_search
 from fixed_point import fixed_point
+from fun_plot import plot
 
 
 def main(argv):
-    def g(x):
-        v = math.pow(x, 3) - (7.5 * math.pow(x, 2)) + (18.4239 * x) - 14.8331
-        return v
-
-    def f(x):
-        v = math.pow(math.e, (3 * x) - 12) + (x * math.cos(3 * x)) - math.pow(x, 2) + 4
-        return v
-
-    # incremental_search(f, -10, 1, 240)
-    # bisection(f, 2, 3, (0.5 * math.pow(10, -3)), True)
-    bisection(f, 2, 3, (5 * math.pow(10, -10)), False)
-    false_rule(f, 2, 3, (5 * math.pow(10, -10)), False)
-
-    # def w(x):
-    #     v = (x * math.pow(math.e, x)) - math.pow(x, 2) - (5 * x) - 3
+    # def f(x):
+    #     v = math.pow(x, 3) + (2 * math.pow(x, 2)) + (10 * x) - 20
     #     return v
 
-    # def h(x):
-    #     v = (x * math.pow(math.e, x)) - math.pow(x, 2) - 3
-    #     return v / 5
+    # def g(x):
+    #     d = math.pow(x, 2) + (2 * x) + 10
+    #     return 20 / d
 
-    # fixed_point(w, h, -0.5, 5 * math.pow(10, -5), 10, False)
+    # fixed_point(f, g, 0, math.pow(10, -6), 100, True)
+
+    def f(x):
+        v = math.pow(x, 2) - (2 * x) + 2 - math.pow(math.e, x)
+        return v
+
+    def df(x):
+        v = (2 * x) - 2 - math.pow(math.e, x)
+        return v
+
+    def g(x):
+        v = math.pow(x, 2) - (2 * x) + 2
+        return math.log(v)
+
+    def dg(x):
+        a = (2 * x) - 2
+        b = math.pow(x, 2) - (2 * x) + 2
+        return a / b
+
+    fixed_point(f, g, dg, 0.5, (0.5 * math.pow(10, -2)), 100, True)
+
+    # plot((0.1, 0.6), 0.01, g, dg)
 
 
 if __name__ == "__main__":

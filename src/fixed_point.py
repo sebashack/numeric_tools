@@ -1,7 +1,7 @@
 import math
 
 
-def fixed_point(f, g, x0, tol, n, with_abs_err=True):
+def fixed_point(f, g, dg, x0, tol, n, with_abs_err=True):
     x = x0
     fx = f(x)
     i = 0
@@ -10,8 +10,24 @@ def fixed_point(f, g, x0, tol, n, with_abs_err=True):
     rel_err = abs_err
     error = abs_err
 
+    dg_ = None
+    if dg is None:
+
+        def dg_(x):
+            return "NA"
+
+    else:
+        dg_ = dg
+
+    derivatives = []
     while fx != 0 and error > tol and i < n:
-        # print(f"{i} -- f({x}) = {fx} -- abs_err = {abs_err} -- rel_err = {rel_err}")
+        dgx = dg_(x)
+        if dg is not None:
+            derivatives.append(abs(dgx))
+
+        print(
+            f"{i} -- f({x}) = {fx} -- dg(x) = {dgx} -- abs_err = {abs_err} -- rel_err = {rel_err}"
+        )
 
         xn = g(x)
         fx = f(xn)
@@ -28,8 +44,13 @@ def fixed_point(f, g, x0, tol, n, with_abs_err=True):
         i = i + 1
 
     if fx == 0:
-        print(f"{i} -- f({x}) = {fx} -- exact root")
+        print(f"{i} -- f({x}) = {fx} -- dg(x) = {dg_(x)} -- exact root")
     elif error < tol:
-        print(f"{i} -- f({x}) = {fx} -- err = {abs_err} -- rel_err = {rel_err}")
+        print(
+            f"{i} -- f({x}) = {fx} -- dg(x) = {dg_(x)} -- err = {abs_err} -- rel_err = {rel_err}"
+        )
     else:
         print(f"{i} -- Failed")
+
+    if len(derivatives) > 0:
+        print(f"max-abs-derivative = {max(derivatives)}")

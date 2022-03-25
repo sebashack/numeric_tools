@@ -7,6 +7,7 @@ from incremental_search import incremental_search
 from fixed_point import fixed_point
 from fun_plot import plot
 from maximum_dg import maximum_dg
+from newton import newton
 
 
 def main(argv):
@@ -38,8 +39,10 @@ def main(argv):
         return a / b
 
     tolerance = 0.5 * math.pow(10, -4)
-    fixed_point(f, g, dg, 0.5, tolerance, 100, True)
-    print(maximum_dg((0.1, 0.6), 0.001, dg))
+    # fixed_point(f, g, dg, 0.5, tolerance, 100, True)
+    newton(f, df, 0.5, tolerance, 100, True)
+
+    # print(maximum_dg((0.1, 0.6), 0.001, dg))
 
 
 if __name__ == "__main__":

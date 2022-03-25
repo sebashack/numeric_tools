@@ -1,6 +1,3 @@
-import math
-
-
 def fixed_point(f, g, dg, x0, tol, n, with_abs_err=True):
     x = x0
     fx = f(x)
@@ -19,11 +16,8 @@ def fixed_point(f, g, dg, x0, tol, n, with_abs_err=True):
     else:
         dg_ = dg
 
-    derivatives = []
     while fx != 0 and error > tol and i < n:
         dgx = dg_(x)
-        if dg is not None:
-            derivatives.append(abs(dgx))
 
         print(
             f"{i} -- f({x}) = {fx} -- dg(x) = {dgx} -- abs_err = {abs_err} -- rel_err = {rel_err}"
@@ -51,6 +45,3 @@ def fixed_point(f, g, dg, x0, tol, n, with_abs_err=True):
         )
     else:
         print(f"{i} -- Failed")
-
-    if len(derivatives) > 0:
-        print(f"max-abs-derivative = {max(derivatives)}")

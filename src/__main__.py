@@ -6,6 +6,7 @@ from false_rule import false_rule
 from incremental_search import incremental_search
 from fixed_point import fixed_point
 from fun_plot import plot
+from maximum_dg import maximum_dg
 
 
 def main(argv):
@@ -36,9 +37,9 @@ def main(argv):
         b = math.pow(x, 2) - (2 * x) + 2
         return a / b
 
-    fixed_point(f, g, dg, 0.5, (0.5 * math.pow(10, -2)), 100, True)
-
-    # plot((0.1, 0.6), 0.01, g, dg)
+    tolerance = 0.5 * math.pow(10, -4)
+    fixed_point(f, g, dg, 0.5, tolerance, 100, True)
+    print(maximum_dg((0.1, 0.6), 0.001, dg))
 
 
 if __name__ == "__main__":

@@ -3,46 +3,23 @@ import math
 
 from bisection import bisection
 from false_rule import false_rule
-from incremental_search import incremental_search
 from fixed_point import fixed_point
 from fun_plot import plot
+from incremental_search import incremental_search
 from maximum_dg import maximum_dg
 from newton import newton
+from secant import secant
 
 
 def main(argv):
-    # def f(x):
-    #     v = math.pow(x, 3) + (2 * math.pow(x, 2)) + (10 * x) - 20
-    #     return v
-
-    # def g(x):
-    #     d = math.pow(x, 2) + (2 * x) + 10
-    #     return 20 / d
-
-    # fixed_point(f, g, 0, math.pow(10, -6), 100, True)
-
     def f(x):
-        v = math.pow(x, 2) - (2 * x) + 2 - math.pow(math.e, x)
-        return v
-
-    def df(x):
-        v = (2 * x) - 2 - math.pow(math.e, x)
-        return v
+        return math.pow(math.e, -x) - x
 
     def g(x):
-        v = math.pow(x, 2) - (2 * x) + 2
-        return math.log(v)
+        return math.pow(math.e, x) - (5 * x) + 2
 
-    def dg(x):
-        a = (2 * x) - 2
-        b = math.pow(x, 2) - (2 * x) + 2
-        return a / b
-
-    tolerance = 0.5 * math.pow(10, -4)
-    # fixed_point(f, g, dg, 0.5, tolerance, 100, True)
-    newton(f, df, 0.5, tolerance, 100, True)
-
-    # print(maximum_dg((0.1, 0.6), 0.001, dg))
+    tolerance = 0.5 * math.pow(10, -10)
+    secant(g, (0.5, 1), tolerance, 20, True)
 
 
 if __name__ == "__main__":

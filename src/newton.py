@@ -28,7 +28,7 @@ def newton(f, df, x0, tol, n, with_abs_err=True):
     if fx == 0:
         print(f"{i} -- f({x}) = {fx} -- exact root")
     elif error < tol:
-        print(f"{i} -- f({x}) = {fx} -- err = {abs_err} -- rel_err = {rel_err}")
+        print(f"{i} -- f({x}) = {fx} -- asb_err = {abs_err} -- rel_err = {rel_err}")
     elif dfx == 0:
         print("possibly a multiple root")
     else:

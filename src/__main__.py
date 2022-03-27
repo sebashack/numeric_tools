@@ -9,17 +9,23 @@ from incremental_search import incremental_search
 from maximum_dg import maximum_dg
 from newton import newton
 from secant import secant
+from multiple_roots import multiple_roots
 
 
 def main(argv):
     def f(x):
-        return math.pow(math.e, -x) - x
+        ex = math.pow(math.e, x)
+        return (x * ex) - ex + 1
 
-    def g(x):
-        return math.pow(math.e, x) - (5 * x) + 2
+    def df(x):
+        return x * math.pow(math.e, x)
 
-    tolerance = 0.5 * math.pow(10, -10)
-    secant(g, (0.5, 1), tolerance, 20, True)
+    def ddf(x):
+        ex = math.pow(math.e, x)
+        return (x * ex) + ex
+
+    tolerance = math.pow(10, -5)
+    multiple_roots(f, df, ddf, 0.5, tolerance, 5, err_type="abs")
 
 
 if __name__ == "__main__":

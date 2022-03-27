@@ -9,12 +9,12 @@ def multiple_roots(f, df, ddf, x0, tol, n, err_type="abs"):
     ddfx = ddf(x)
     i = 0
 
-    abs_err = tol + 1
-    rel_err = abs_err
-    error = abs_err
+    abs_err = float("inf")
+    rel_err = float("inf")
+    error = float("inf")
 
     if err_type == "fx":
-        error = fx
+        error = abs(fx)
 
     while fx != 0 and error > tol and i < n:
         print(
@@ -30,7 +30,7 @@ def multiple_roots(f, df, ddf, x0, tol, n, err_type="abs"):
         rel_err = abs_err / abs(xn)
 
         if err_type == "fx":
-            error = fx
+            error = abs(fx)
         elif err_type == "rel":
             error = rel_err
         else:

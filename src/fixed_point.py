@@ -1,11 +1,11 @@
-def fixed_point(f, g, dg, x0, tol, n, with_abs_err=True):
+def fixed_point(f, g, dg, x0, tol, n, err_type="abs"):
     x = x0
     fx = f(x)
     i = 0
 
-    abs_err = tol + 1
-    rel_err = abs_err
-    error = abs_err
+    abs_err = float("inf")
+    rel_err = float("inf")
+    error = float("inf")
 
     dg_ = None
     if dg is None:
@@ -15,6 +15,9 @@ def fixed_point(f, g, dg, x0, tol, n, with_abs_err=True):
 
     else:
         dg_ = dg
+
+    if err_type == "fx":
+        error = abs(fx)
 
     while fx != 0 and error > tol and i < n:
         dgx = dg_(x)
@@ -29,10 +32,12 @@ def fixed_point(f, g, dg, x0, tol, n, with_abs_err=True):
         abs_err = abs(xn - x)
         rel_err = abs_err / abs(xn)
 
-        if with_abs_err:
-            error = abs_err
-        else:
+        if err_type == "fx":
+            error = abs(fx)
+        elif err_type == "rel":
             error = rel_err
+        else:
+            error = abs_err
 
         x = xn
         i = i + 1

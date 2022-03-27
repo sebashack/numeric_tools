@@ -1,4 +1,5 @@
-def false_rule(f, xlo, xup, tol, with_abs_err=True):
+# err_type = abs | rel | fx
+def false_rule(f, xlo, xup, tol, err_type="abs"):
     fxlo = f(xlo)
     fxup = f(xup)
     i = 0
@@ -11,12 +12,16 @@ def false_rule(f, xlo, xup, tol, with_abs_err=True):
         xm = xlo - ((fxlo * (xup - xlo)) / (fxup - fxlo))
         fxm = f(xm)
         i = 1
-        abs_err = tol + 1
-        rel_err = abs_err
-        error = abs_err
+
+        abs_err = float("inf")
+        rel_err = float("inf")
+        error = float("inf")
+
+        if err_type == "fx":
+            error = abs(fxm)
 
         while error >= tol and fxm != 0:
-            # print(f"{i} -- f({xm}) = {fxm} -- err = {abs_err} -- rel_err = {rel_err}")
+            print(f"{i} -- f({xm}) = {fxm} -- err = {abs_err} -- rel_err = {rel_err}")
             if fxlo * fxm < 0:
                 xup = xm
                 fxup = fxm
@@ -30,10 +35,12 @@ def false_rule(f, xlo, xup, tol, with_abs_err=True):
             abs_err = abs(xm - xtemp)
             rel_err = abs_err / abs(xm)
 
-            if with_abs_err:
-                error = abs_err
-            else:
+            if err_type == "fx":
+                error = abs(fxm)
+            elif err_type == "rel":
                 error = rel_err
+            else:
+                error = abs_err
 
             i = i + 1
 

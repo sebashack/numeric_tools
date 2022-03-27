@@ -13,19 +13,35 @@ from multiple_roots import multiple_roots
 
 
 def main(argv):
+    def g(x):
+        return math.pow(math.e, -x)
+
+    def dg(x):
+        return -math.pow(math.e, -x)
+
     def f(x):
-        ex = math.pow(math.e, x)
-        return (x * ex) - ex + 1
+        return math.pow(math.e, -x) - x
 
     def df(x):
-        return x * math.pow(math.e, x)
+        return -math.pow(math.e, -x) - 1
 
     def ddf(x):
-        ex = math.pow(math.e, x)
-        return (x * ex) + ex
+        return -math.pow(math.e, x)
 
-    tolerance = math.pow(10, -5)
-    multiple_roots(f, df, ddf, 0.5, tolerance, 5, err_type="abs")
+    tolerance = math.pow(10, -4)
+    secant(f, (0, 1), tolerance, 100, err_type="fx")
+    print("----")
+    multiple_roots(f, df, ddf, 0, tolerance, 100, err_type="fx")
+    print("----")
+    newton(f, df, 0, tolerance, 100, err_type="fx")
+    print("----")
+    fixed_point(f, g, dg, 0, tolerance, 100, err_type="rel")
+    print("----")
+    false_rule(f, 0, 0.6, tolerance, err_type="fx")
+    print("----")
+    bisection(f, 0, 0.6, tolerance, err_type="rel")
+    print("----")
+    incremental_search(f, 0, 0.001, 1000)
 
 
 if __name__ == "__main__":

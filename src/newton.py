@@ -1,12 +1,16 @@
-def newton(f, df, x0, tol, n, with_abs_err=True):
+# err_type = abs | rel | fx
+def newton(f, df, x0, tol, n, err_type="abs"):
     x = x0
     fx = f(x)
     dfx = df(x)
     i = 0
 
-    abs_err = tol + 1
-    rel_err = abs_err
-    error = abs_err
+    abs_err = float("inf")
+    rel_err = float("inf")
+    error = float("inf")
+
+    if err_type == "fx":
+        error = abs(fx)
 
     while fx != 0 and error > tol and dfx != 0 and i < n:
         print(f"{i} -- f({x}) = {fx} -- abs_err = {abs_err} -- rel_err = {rel_err}")
@@ -17,10 +21,12 @@ def newton(f, df, x0, tol, n, with_abs_err=True):
         abs_err = abs(xn - x)
         rel_err = abs_err / abs(xn)
 
-        if with_abs_err:
-            error = abs_err
-        else:
+        if err_type == "fx":
+            error = abs(fx)
+        elif err_type == "rel":
             error = rel_err
+        else:
+            error = abs_err
 
         x = xn
         i = i + 1

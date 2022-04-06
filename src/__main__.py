@@ -28,20 +28,20 @@ def main(argv):
     def ddf(x):
         return -math.pow(math.e, x)
 
-    tolerance = math.pow(10, -4)
-    secant(f, (0, 1), tolerance, 100, err_type="fx")
+    tolerance = 5 * math.pow(10, -5)
+    secant(f, (0, 1), tolerance, 100, err_type="abs")
     print("----")
-    multiple_roots(f, df, ddf, 0, tolerance, 100, err_type="fx")
+    multiple_roots(f, df, ddf, 0, tolerance, 100, err_type="abs")
     print("----")
-    newton(f, df, 0, tolerance, 100, err_type="fx")
+    newton(f, df, 0, tolerance, 100, err_type="abs")
     print("----")
-    fixed_point(f, g, dg, 0, tolerance, 100, err_type="rel")
+    fixed_point(f, g, dg, 0, tolerance, 100, err_type="abs")
     print("----")
-    false_rule(f, 0, 0.6, tolerance, err_type="fx")
+    false_rule(f, -2, 5.0, tolerance, err_type="abs")
     print("----")
-    bisection(f, 0, 0.6, tolerance, err_type="rel")
+    bisection(f, -2, 5.0, tolerance, err_type="abs")
     print("----")
-    incremental_search(f, 0, 0.001, 1000)
+    incremental_search(f, 0, 0.00001, 100000)
 
 
 if __name__ == "__main__":

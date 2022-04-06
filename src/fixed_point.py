@@ -46,7 +46,7 @@ def fixed_point(f, g, dg, x0, tol, n, err_type="abs"):
         print(f"{i} -- f({x}) = {fx} -- dg(x) = {dg_(x)} -- exact root")
     elif error < tol:
         print(
-            f"{i} -- f({x}) = {fx} -- dg(x) = {dg_(x)} -- err = {abs_err} -- rel_err = {rel_err}"
+            f"{i} -- f({x}) = {fx} -- dg(x) = {dg_(x)} -- abs_err = {abs_err} -- rel_err = {rel_err}"
         )
     else:
         print(f"{i} -- Failed")

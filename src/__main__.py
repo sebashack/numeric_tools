@@ -26,14 +26,14 @@ def main(argv):
         return -math.pow(math.e, -x) - 1
 
     def ddf(x):
-        return -math.pow(math.e, x)
+        return math.pow(math.e, -x)
 
     tolerance = 5 * math.pow(10, -5)
-    secant(f, (0, 1), tolerance, 100, err_type="abs")
+    secant(f, (-1, 1), tolerance, 100, err_type="fx")
     print("----")
-    multiple_roots(f, df, ddf, 0, tolerance, 100, err_type="abs")
+    multiple_roots(f, df, ddf, -1, tolerance, 100, err_type="fx")
     print("----")
-    newton(f, df, 0, tolerance, 100, err_type="abs")
+    newton(f, df, -2, tolerance, 100, err_type="abs")
     print("----")
     fixed_point(f, g, dg, 0, tolerance, 100, err_type="abs")
     print("----")

@@ -29,19 +29,19 @@ def main(argv):
         return math.pow(math.e, -x)
 
     tolerance = 5 * math.pow(10, -5)
-    secant(f, (-1, 1), tolerance, 100, err_type="fx")
+    print(secant(f, (-1, 1), tolerance, 100, err_type="fx"))
     print("----")
-    multiple_roots(f, df, ddf, -1, tolerance, 100, err_type="fx")
+    print(multiple_roots(f, df, ddf, -1, tolerance, 100, err_type="fx"))
     print("----")
-    newton(f, df, -2, tolerance, 100, err_type="abs")
+    print(newton(f, df, -2, tolerance, 100, err_type="abs"))
     print("----")
-    fixed_point(f, g, dg, 0, tolerance, 100, err_type="abs")
+    print(fixed_point(f, g, 0, tolerance, 100, err_type="abs"))
     print("----")
-    false_rule(f, -2, 5.0, tolerance, err_type="abs")
+    print(false_rule(f, -2, 5.0, tolerance, err_type="abs"))
     print("----")
-    bisection(f, -2, 5.0, tolerance, err_type="abs")
+    print(bisection(f, -2, 5.0, tolerance, err_type="abs"))
     print("----")
-    incremental_search(f, 0, 0.00001, 100000)
+    print(incremental_search(f, 0, 0.00001, 100000))
 
 
 if __name__ == "__main__":

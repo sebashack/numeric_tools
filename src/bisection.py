@@ -5,9 +5,9 @@ def bisection(f, xlo, xup, tol, err_type="abs"):
     i = 0
 
     if fxlo == 0:
-        print(f"{i} -- f({xlo}) = {fxlo}")
+        return xlo
     elif fxup == 0:
-        print(f"{i} -- f({xup}) = {fxup}")
+        return xup
     elif fxlo * fxup < 0:
         xm = (xlo + xup) / 2
         fxm = f(xm)
@@ -20,9 +20,6 @@ def bisection(f, xlo, xup, tol, err_type="abs"):
             error = abs(fxm)
 
         while error >= tol and fxm != 0:
-            print(
-                f"{i} -- f({xm}) = {fxm} -- abs_err = {abs_err} -- rel_err = {rel_err}"
-            )
             if fxlo * fxm < 0:
                 xup = xm
                 fxup = fxm
@@ -45,11 +42,7 @@ def bisection(f, xlo, xup, tol, err_type="abs"):
 
             i = i + 1
 
-        if fxm == 0:
-            print(f"{i} -- f({xm}) = {fxm} -- exact root")
-        elif error < tol:
-            print(
-                f"{i} -- f({xm}) = {fxm} -- abs_err = {abs_err} -- rel_err = {rel_err}"
-            )
+        if fxm == 0 or error < tol:
+            return xm
     else:
-        print("Invalid interval")
+        return None

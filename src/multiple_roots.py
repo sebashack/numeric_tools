@@ -17,10 +17,6 @@ def multiple_roots(f, df, ddf, x0, tol, n, err_type="abs"):
         error = abs(fx)
 
     while fx != 0 and error > tol and i < n:
-        print(
-            f"{i} -- f({x}) = {fx} -- dfx = {dfx} -- ddfx = {ddfx} -- abs_err = {abs_err} -- rel_err = {rel_err}"
-        )
-
         xn = x - ((fx * dfx) / (math.pow(dfx, 2) - (fx * ddfx)))
         fx = f(xn)
         dfx = df(xn)
@@ -39,13 +35,7 @@ def multiple_roots(f, df, ddf, x0, tol, n, err_type="abs"):
         x = xn
         i = i + 1
 
-    if fx == 0:
-        print(f"{i} -- f({x}) = {fx} -- exact root")
-    elif error < tol:
-        print(
-            f"{i} -- f({x}) = {fx} -- dfx = {dfx} -- ddfx = {ddfx} -- asb_err = {abs_err} -- rel_err = {rel_err}"
-        )
-    elif dfx == 0:
-        print("possibly a multiple root")
+    if fx == 0 or error < tol:
+        return x
     else:
-        print(f"{i} -- Failed")
+        return None

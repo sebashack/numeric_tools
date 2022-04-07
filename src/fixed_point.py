@@ -1,4 +1,5 @@
-def fixed_point(f, g, dg, x0, tol, n, err_type="abs"):
+# err_type = abs | rel | fx
+def fixed_point(f, g, x0, tol, n, err_type="abs"):
     x = x0
     fx = f(x)
     i = 0
@@ -7,25 +8,10 @@ def fixed_point(f, g, dg, x0, tol, n, err_type="abs"):
     rel_err = float("inf")
     error = float("inf")
 
-    dg_ = None
-    if dg is None:
-
-        def dg_(x):
-            return "NA"
-
-    else:
-        dg_ = dg
-
     if err_type == "fx":
         error = abs(fx)
 
     while fx != 0 and error > tol and i < n:
-        dgx = dg_(x)
-
-        print(
-            f"{i} -- f({x}) = {fx} -- dg(x) = {dgx} -- abs_err = {abs_err} -- rel_err = {rel_err}"
-        )
-
         xn = g(x)
         fx = f(xn)
 
@@ -42,11 +28,7 @@ def fixed_point(f, g, dg, x0, tol, n, err_type="abs"):
         x = xn
         i = i + 1
 
-    if fx == 0:
-        print(f"{i} -- f({x}) = {fx} -- dg(x) = {dg_(x)} -- exact root")
-    elif error < tol:
-        print(
-            f"{i} -- f({x}) = {fx} -- dg(x) = {dg_(x)} -- abs_err = {abs_err} -- rel_err = {rel_err}"
-        )
+    if fx == 0 or error < tol:
+        return x
     else:
-        print(f"{i} -- Failed")
+        return None

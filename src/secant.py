@@ -8,13 +8,11 @@ def secant(f, interval, tol, n, err_type="abs"):
     i = 0
 
     if fx0 == 0:
-        print(f"{i} -- f({x0}) = {fx0} -- exact root")
+        return x0
     else:
         abs_err = float("inf")
         rel_err = float("inf")
         error = float("inf")
-
-        print(f"{i} -- f({x0}) = {fx0} -- abs_err = {abs_err} -- rel_err = {rel_err}")
 
         fx1 = f(x1)
 
@@ -24,10 +22,6 @@ def secant(f, interval, tol, n, err_type="abs"):
         denominator = fx1 - fx0
         i = i + 1
         while error > tol and fx1 != 0 and denominator != 0 and i < n:
-            print(
-                f"{i} -- f({x1}) = {fx1} -- abs_err = {abs_err} -- rel_err = {rel_err}"
-            )
-
             x2 = x1 - ((fx1 * (x1 - x0)) / denominator)
             abs_err = abs(x2 - x1)
             rel_err = abs_err / abs(x2)
@@ -49,10 +43,8 @@ def secant(f, interval, tol, n, err_type="abs"):
             i = i + 1
 
     if fx1 == 0:
-        print(f"{i} -- f({x1}) = {fx1} -- exact root")
+        return x1
     elif error < tol:
-        print(f"{i} -- f({x1}) = {fx1} -- asb_err = {abs_err} -- rel_err = {rel_err}")
-    elif denominator == 0:
-        print("possibly a multiple root")
+        return x1
     else:
-        print(f"{i} -- Failed")
+        return None

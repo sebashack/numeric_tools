@@ -12,3 +12,8 @@ def mkMat(lss):
 
 def mkVec(vec):
     return np.array(vec).astype(np.float64)
+
+
+def print_solution(vec):
+    for i, x in enumerate(vec):
+        print(f"x{i+1} = {x}")

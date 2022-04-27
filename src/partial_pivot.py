@@ -4,11 +4,11 @@ def partial_pivot(ab, k):
     largest_row = k
     n = ab.shape[0]
 
-    for s in range(k + 1, n):
-        current = abs(ab[s][k])
+    for r in range(k + 1, n):
+        current = abs(ab[r][k])
         if current > largest:
             largest = current
-            largest_row = s
+            largest_row = r
     if largest == 0:
         raise Exception("Equation system does not have unique solution.")
     else:

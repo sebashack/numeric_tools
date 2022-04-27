@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def regressive_substitution(ab):
+def regressive_substitution(ab, labels=None):
     n = ab.shape[0]
     assert ab.shape[1] == n + 1
 
@@ -14,4 +14,11 @@ def regressive_substitution(ab):
         for p in range(i + 1, n):
             accum += ab[i][p] * xs[p]
         xs[i] = (ab[i][n] - accum) / ab[i][i]
+
+    labeled_xs = np.zeros(n)
+    if labels is not None:
+        for i, v in enumerate(labels):
+            labeled_xs[labels[i]] = xs[i]
+        xs = labeled_xs
+
     return xs

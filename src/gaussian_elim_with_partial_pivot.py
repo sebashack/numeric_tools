@@ -1,7 +1,9 @@
 import numpy as np
 
+from partial_pivot import partial_pivot
 
-def simple_gaussian_elim(a, b, print_k=False):
+
+def gaussian_elim_with_partial_pivot(a, b, print_k=False):
     ab = np.column_stack((a, b))
     assert a.shape[0] == a.shape[1]
 
@@ -9,6 +11,7 @@ def simple_gaussian_elim(a, b, print_k=False):
 
     # Stages
     for k in range(0, n - 1):
+        partial_pivot(ab, k)
         # Compute factor for row in stage.
         for i in range(k + 1, n):
             factor = ab[i][k] / ab[k][k]

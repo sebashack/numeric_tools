@@ -14,5 +14,8 @@ def simple_gaussian_elim(a, b):
             factor = ab[i][k] / ab[k][k]
             for j in range(k, n + 1):
                 ab[i][j] = ab[i][j] - (factor * ab[k][j])
+        print(f"stage {k}")
+        print(ab)
+        print("----")
 
     return ab

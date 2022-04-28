@@ -9,11 +9,11 @@ def solve_by_simple_gaussian_elim(a, b, print_k=False):
 
     # Stages
     for k in range(0, n - 1):
-        # Compute factor for row in stage.
+        # Compute multiplier for row in stage.
         for i in range(k + 1, n):
-            factor = ab[i][k] / ab[k][k]
+            multiplier = ab[i][k] / ab[k][k]
             for j in range(k, n + 1):
-                ab[i][j] = ab[i][j] - (factor * ab[k][j])
+                ab[i][j] = ab[i][j] - (multiplier * ab[k][j])
         if print_k:
             print(f"stage {k}")
             print(ab)
@@ -29,13 +29,13 @@ def simple_gaussian_elim(a, print_k=False):
 
     # Stages
     for k in range(0, n - 1):
-        # Compute factor for row in stage.
+        # Compute multiplier for row in stage.
         for i in range(k + 1, n):
-            factor = a[i][k] / a[k][k]
+            multiplier = a[i][k] / a[k][k]
             for j in range(k, n):
-                a[i][j] = a[i][j] - (factor * a[k][j])
+                a[i][j] = a[i][j] - (multiplier * a[k][j])
                 if i > j:
-                    lower_tri[i][j] = factor
+                    lower_tri[i][j] = multiplier
         if print_k:
             print(f"stage {k}")
             print(a)

@@ -25,6 +25,7 @@ def solve_by_simple_gaussian_elim(a, b, print_k=False):
 def simple_gaussian_elim(a, print_k=False):
     assert a.shape[0] == a.shape[1]
     n = a.shape[0]
+    lower_tri = np.identity(n)
 
     # Stages
     for k in range(0, n - 1):
@@ -33,9 +34,11 @@ def simple_gaussian_elim(a, print_k=False):
             factor = a[i][k] / a[k][k]
             for j in range(k, n):
                 a[i][j] = a[i][j] - (factor * a[k][j])
+                if i > j:
+                    lower_tri[i][j] = factor
         if print_k:
             print(f"stage {k}")
             print(a)
             print("----")
 
-    return a
+    return (a, lower_tri)

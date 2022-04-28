@@ -1,6 +1,6 @@
 import numpy as np
 
-from partial_pivot import partial_pivot
+from partial_pivot import partial_pivot, partial_pivot_with_permutation
 
 
 def solve_by_gaussian_elim_with_partial_pivot(a, b, print_k=False):
@@ -12,11 +12,11 @@ def solve_by_gaussian_elim_with_partial_pivot(a, b, print_k=False):
     # Stages
     for k in range(0, n - 1):
         partial_pivot(ab, k)
-        # Compute factor for row in stage.
+        # Compute multiplier for row in stage.
         for i in range(k + 1, n):
-            factor = ab[i][k] / ab[k][k]
+            multiplier = ab[i][k] / ab[k][k]
             for j in range(k, n + 1):
-                ab[i][j] = ab[i][j] - (factor * ab[k][j])
+                ab[i][j] = ab[i][j] - (multiplier * ab[k][j])
         if print_k:
             print(f"stage {k}")
             print(ab)
@@ -25,22 +25,26 @@ def solve_by_gaussian_elim_with_partial_pivot(a, b, print_k=False):
     return ab
 
 
-def gaussian_elim_with_partial_pivot(a, print_k=False):
+def lu_factorization_with_partial_pivot(a, print_k=False):
     assert a.shape[0] == a.shape[1]
 
     n = a.shape[0]
+    permutation = np.identity(n)
+    lower_tri = np.identity(n)
 
     # Stages
     for k in range(0, n - 1):
-        partial_pivot(a, k)
-        # Compute factor for row in stage.
+        partial_pivot_with_permutation(a, lower_tri, permutation, k)
+        # Compute multiplier for row in stage.
         for i in range(k + 1, n):
-            factor = a[i][k] / a[k][k]
+            multiplier = a[i][k] / a[k][k]
             for j in range(k, n):
-                a[i][j] = a[i][j] - (factor * a[k][j])
+                a[i][j] = a[i][j] - (multiplier * a[k][j])
+                if i > j:
+                    lower_tri[i][j] = multiplier
         if print_k:
             print(f"stage {k}")
             print(a)
             print("----")
 
-    return a
+    return (a, lower_tri, permutation)

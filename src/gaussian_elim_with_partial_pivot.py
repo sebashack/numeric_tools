@@ -26,6 +26,7 @@ def solve_by_gaussian_elim_with_partial_pivot(a, b, print_k=False):
     return ab
 
 
+# WARNING: This function mutates input matrix a
 def lu_factorization_with_partial_pivot(a, print_k=False):
     assert a.shape[0] == a.shape[1]
 
@@ -48,4 +49,4 @@ def lu_factorization_with_partial_pivot(a, print_k=False):
             print(a)
             print("----")
 
-    return (lower_tri, a, permutation)
+    return (lower_tri, permutation)

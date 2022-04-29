@@ -24,6 +24,7 @@ def solve_by_simple_gaussian_elim(a, b, print_k=False):
     return ab
 
 
+# WARNING: This function mutates input matrix a
 def simple_gaussian_elim(a, print_k=False):
     assert a.shape[0] == a.shape[1]
     n = a.shape[0]
@@ -43,4 +44,4 @@ def simple_gaussian_elim(a, print_k=False):
             print(a)
             print("----")
 
-    return (a, lower_tri)
+    return lower_tri

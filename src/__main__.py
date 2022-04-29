@@ -1,14 +1,16 @@
 import sys
 
 from gaussian_elim_with_partial_pivot import (
-    lu_factorization_with_partial_pivot,
     solve_by_gaussian_elim_with_partial_pivot,
 )
-from matrix_utils import set_print_opts, mk_mat, mk_vec, print_solution
+from matrix_utils import set_print_opts, mk_mat, mk_vec, print_solution, copy
 from gaussian_elim_with_total_pivot import solve_by_gaussian_elim_with_total_pivot
 from regressive_substitution import regressive_substitution
-from simple_gaussian_elim import solve_by_simple_gaussian_elim, simple_gaussian_elim
-from factorization_solvers import solve_by_lu_fac_with_partial_pivot
+from simple_gaussian_elim import solve_by_simple_gaussian_elim
+from factorization_solvers import (
+    solve_by_simple_gaussian_fac,
+    solve_by_lu_fac_with_partial_pivot,
+)
 
 set_print_opts(4)
 
@@ -47,7 +49,11 @@ def main(argv):
     print_solution(xs)
     print("--")
 
-    xs = solve_by_lu_fac_with_partial_pivot(a, b)
+    xs = solve_by_simple_gaussian_fac(copy(a), copy(b))
+    print_solution(xs)
+    print("--")
+
+    xs = solve_by_lu_fac_with_partial_pivot(copy(a), copy(b))
     print_solution(xs)
     print("--")
 

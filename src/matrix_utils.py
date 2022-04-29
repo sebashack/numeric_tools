@@ -14,6 +14,10 @@ def mk_mat(lss):
     return np.array(lss).astype(np.float64)
 
 
+def copy(m):
+    return np.copy(m)
+
+
 def mk_vec(vec):
     return np.array(vec).astype(np.float64)
 

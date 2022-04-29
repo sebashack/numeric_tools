@@ -10,6 +10,7 @@ from simple_gaussian_elim import solve_by_simple_gaussian_elim
 from factorization_solvers import (
     solve_by_simple_gaussian_fac,
     solve_by_lu_fac_with_partial_pivot,
+    solve_by_crout_fac,
 )
 
 set_print_opts(4)
@@ -54,6 +55,10 @@ def main(argv):
     print("--")
 
     xs = solve_by_lu_fac_with_partial_pivot(copy(a), copy(b))
+    print_solution(xs)
+    print("--")
+
+    xs = solve_by_crout_fac(a, b)
     print_solution(xs)
     print("--")
 

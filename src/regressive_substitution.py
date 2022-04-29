@@ -5,7 +5,7 @@ def regressive_substitution(ab, labels=None):
     n = ab.shape[0]
     assert ab.shape[1] == n + 1
 
-    xs = np.zeros(n)
+    xs = np.zeros(n, dtype=np.float64)
     xs[n - 1] = ab[n - 1][n] / ab[n - 1][n - 1]
 
     # Loop backwards

@@ -28,7 +28,7 @@ def solve_by_simple_gaussian_elim(a, b, print_k=False):
 def simple_gaussian_elim(a, print_k=False):
     assert a.shape[0] == a.shape[1]
     n = a.shape[0]
-    lower_tri = np.identity(n)
+    lower_tri = np.identity(n, dtype=np.float64)
 
     # Stages
     for k in range(0, n - 1):

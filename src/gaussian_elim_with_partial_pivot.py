@@ -31,8 +31,8 @@ def lu_factorization_with_partial_pivot(a, print_k=False):
     assert a.shape[0] == a.shape[1]
 
     n = a.shape[0]
-    permutation = np.identity(n)
-    lower_tri = np.identity(n)
+    permutation = np.identity(n, dtype=np.float64)
+    lower_tri = np.identity(n, dtype=np.float64)
 
     # Stages
     for k in range(0, n - 1):

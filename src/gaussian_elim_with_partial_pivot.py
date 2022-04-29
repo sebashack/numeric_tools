@@ -1,10 +1,11 @@
 import numpy as np
 
 from partial_pivot import partial_pivot, partial_pivot_with_permutation
+from matrix_utils import to_aug
 
 
 def solve_by_gaussian_elim_with_partial_pivot(a, b, print_k=False):
-    ab = np.column_stack((a, b))
+    ab = to_aug(a, b)
     assert a.shape[0] == a.shape[1]
 
     n = a.shape[0]
@@ -47,4 +48,4 @@ def lu_factorization_with_partial_pivot(a, print_k=False):
             print(a)
             print("----")
 
-    return (a, lower_tri, permutation)
+    return (lower_tri, a, permutation)

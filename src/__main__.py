@@ -1,53 +1,54 @@
 import sys
 
 from gaussian_elim_with_partial_pivot import (
-    gaussian_elim_with_partial_pivot,
+    lu_factorization_with_partial_pivot,
     solve_by_gaussian_elim_with_partial_pivot,
 )
-from matrix_utils import set_print_opts, mkMat, mkVec, print_solution
-from gaussian_elim_with_total_pivot import (
-    gaussian_elim_with_total_pivot,
-    solve_by_gaussian_elim_with_total_pivot,
-)
+from matrix_utils import set_print_opts, mk_mat, mk_vec, print_solution
+from gaussian_elim_with_total_pivot import solve_by_gaussian_elim_with_total_pivot
 from regressive_substitution import regressive_substitution
 from simple_gaussian_elim import solve_by_simple_gaussian_elim, simple_gaussian_elim
+from factorization_solvers import solve_by_lu_fac_with_partial_pivot
 
 set_print_opts(4)
 
 
 def main(argv):
-    # a = mkMat([[2, -1, -3, 2], [5, -10, 2, -6], [5, -9, 15, -6], [2, 1, -1, 10]])
-    # b = mkVec([4, 3, 2, 1])
+    a = mk_mat(
+        [
+            [7, 2, 5, 12, 3, 3, 6, 1, 8, 8, 1, -1],
+            [2, 3, 1, 2, 9, 5, 4, 9, 3, -9, 1, 1],
+            [1, 43, 7, 3, 5, 6, 25, 2, 1, 2, 4, 91],
+            [4, 4, 900, 5, 3, 2, 67, 9, 9, 4, 1, 1],
+            [4, -9, 3, 8, 5, 7, 3, 2, 2, 5, 1, 41],
+            [8, 7, 9, 500, 5, 9, 3, 4, 5, -3, 1, 1],
+            [4, 4, 5, 3, 1, 3, 9, 1, 800, 8, 2, -1],
+            [1, 4, 2, 2, 1, 5, 7, 1, 7, 3, 1, 1],
+            [2, 7, 4, 4, 1, 8, 7, 4, 7, 4, 1, 31],
+            [4, 17, 5, 5, 10, 5, 2, 3, 9, 8, 1, 1],
+            [4, 2, 4, 5, 2, 2, 2, 1, 2, -8, 5, 1],
+            [4, 22, 4, 5, 8, 2, 2, 1, 2, -8, 5, 123],
+        ]
+    )
+    b = mk_vec([30, 8, 1, -10, 4, 4, 90, 6, 9, 6, -3, 100])
 
-    # ab = solve_by_simple_gaussian_elim(a, b)
-    # xs = regressive_substitution(ab)
-    # print(simple_gaussian_elim(a)[0])
-    # print(ab)
-    # print_solution(xs)
-    # print("--")
+    ab = solve_by_simple_gaussian_elim(a, b)
+    xs = regressive_substitution(ab)
+    print_solution(xs)
+    print("--")
 
-    # a = mkMat([[-7, 2, -3, 4], [5, -1, 14, -1], [1, 9, -7, 5], [-12, 13, -8, -4]])
-    # b = mkVec([-12, 13, 31, -32])
-    # ab = solve_by_gaussian_elim_with_partial_pivot(a, b)
-    # xs = regressive_substitution(ab)
-    # print(gaussian_elim_with_partial_pivot(a))
-    # print(ab)
-    # print_solution(xs)
-    # print("--")
+    ab = solve_by_gaussian_elim_with_partial_pivot(a, b)
+    xs = regressive_substitution(ab)
+    print_solution(xs)
+    print("--")
 
-    # a = mkMat([[-7, 2, -3, 4], [5, -1, 14, -1], [1, 9, -7, 13], [-12, 13, -8, -4]])
-    # b = mkVec([-12, 13, 31, -32])
-    # ab, labels = solve_by_gaussian_elim_with_total_pivot(a, b)
-    # xs = regressive_substitution(ab, labels)
-    # print(gaussian_elim_with_total_pivot(a))
-    # print(ab)
-    # print_solution(xs)
-    # print("--")
+    ab, labels = solve_by_gaussian_elim_with_total_pivot(a, b)
+    xs = regressive_substitution(ab, labels)
+    print_solution(xs)
+    print("--")
 
-    a = mkMat([[4, 3, -2, -7], [3, 12, 8, -3], [2, 3, -9, 3], [1, -2, -5, 6]])
-    ar = simple_gaussian_elim(a)
-    print(ar[0])
-    print(ar[1])
+    xs = solve_by_lu_fac_with_partial_pivot(a, b)
+    print_solution(xs)
     print("--")
 
 

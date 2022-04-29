@@ -6,11 +6,15 @@ def set_print_opts(decimal_places):
     np.set_printoptions(precision=decimal_places)
 
 
-def mkMat(lss):
+def to_aug(a, b):
+    return np.column_stack((a, b))
+
+
+def mk_mat(lss):
     return np.array(lss).astype(np.float64)
 
 
-def mkVec(vec):
+def mk_vec(vec):
     return np.array(vec).astype(np.float64)
 
 

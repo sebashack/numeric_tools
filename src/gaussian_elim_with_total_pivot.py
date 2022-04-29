@@ -1,10 +1,9 @@
-import numpy as np
-
 from total_pivot import total_pivot
+from matrix_utils import to_aug
 
 
 def solve_by_gaussian_elim_with_total_pivot(a, b, print_k=False):
-    ab = np.column_stack((a, b))
+    ab = to_aug(a, b)
     assert a.shape[0] == a.shape[1]
 
     n = a.shape[0]

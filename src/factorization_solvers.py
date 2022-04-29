@@ -1,4 +1,5 @@
 from crout_factorization import crout_factorization
+from dolittle_factorization import dolittle_factorization
 from gaussian_elim_with_partial_pivot import lu_factorization_with_partial_pivot
 from matrix_utils import to_aug
 from progressive_substitution import progressive_substitution
@@ -35,6 +36,15 @@ def solve_by_lu_fac_with_partial_pivot(a, b):
 
 def solve_by_crout_fac(a, b):
     lower_tri, upper_tri = crout_factorization(a)
+
+    z = progressive_substitution(to_aug(lower_tri, b))
+    x = regressive_substitution(to_aug(upper_tri, z))
+
+    return x
+
+
+def solve_by_dolittle_fac(a, b):
+    lower_tri, upper_tri = dolittle_factorization(a)
 
     z = progressive_substitution(to_aug(lower_tri, b))
     x = regressive_substitution(to_aug(upper_tri, z))

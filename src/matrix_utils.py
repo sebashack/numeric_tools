@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.datasets import make_spd_matrix
 
 
 def set_print_opts(decimal_places):
@@ -25,3 +26,7 @@ def mk_vec(vec):
 def print_solution(vec):
     for i, x in enumerate(vec):
         print(f"x{i+1} = {x}")
+
+
+def gen_spd_mat(n, seed):
+    return make_spd_matrix(n, random_state=seed)

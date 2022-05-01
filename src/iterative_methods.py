@@ -11,39 +11,40 @@ def jacobi_method(a, b, init, tol, n, err_type="abs"):
 
     xn = init
     i = 0
-    print(f"{iter} | [x0,...,xn] | err_abs | err_rel")
+
+    print("iter | [x0,...,xn] | err_abs | err_rel")
     print(f"{i} | {xn} | err_abs=NA | err_rel=NA")
     while error > tol and i < n:
         x, abs_err, rel_err = next_jacobi_iteration(a, b, xn)
         xn = x
 
         if err_type == "rel":
-            error = abs_err
-        else:
             error = rel_err
+        else:
+            error = abs_err
 
         i += 1
         print(f"{i} | {xn} | abs_err={abs_err} | rel_err={rel_err}")
     return xn
 
 
-def next_jacobi_iteration(a, b, prev_approx):
+def next_jacobi_iteration(a, b, prev_x):
     n = a.shape[0]
-    new_approx = np.zeros(n, dtype=np.float64)
+    x = np.zeros(n, dtype=np.float64)
 
     for i in range(0, n):
         d = a[i][i]
         accum = 0
         for j in range(0, n):
             if j != i:
-                accum += a[i][j] * prev_approx[j]
-        new_approx[i] = (b[i] - accum) / d
+                accum += a[i][j] * prev_x[j]
+        x[i] = (b[i] - accum) / d
 
-    errs = abs(new_approx - prev_approx)
+    errs = abs(x - prev_x)
     abs_err = max(errs)
-    rel_err = max(errs / abs(new_approx))
+    rel_err = max(errs / abs(x))
 
-    return (new_approx, abs_err, rel_err)
+    return (x, abs_err, rel_err)
 
 
 # err_type = abs | rel | fx
@@ -53,28 +54,28 @@ def seidel_method(a, b, init, tol, n, err_type="abs"):
     assert len(init) == len(b)
 
     error = float("inf")
-
     xn = init
     i = 0
-    print(f"{iter} | [x0,...,xn] | err_abs | err_rel")
+
+    print("iter | [x0,...,xn] | err_abs | err_rel")
     print(f"{i} | {xn} | err_abs=NA | err_rel=NA")
     while error > tol and i < n:
         x, abs_err, rel_err = next_seidel_iteration(a, b, xn)
         xn = x
 
         if err_type == "rel":
-            error = abs_err
-        else:
             error = rel_err
+        else:
+            error = abs_err
 
         i += 1
         print(f"{i} | {xn} | abs_err={abs_err} | rel_err={rel_err}")
     return xn
 
 
-def next_seidel_iteration(a, b, prev_approx):
+def next_seidel_iteration(a, b, prev_x):
     n = a.shape[0]
-    new_approx = np.zeros(n, dtype=np.float64)
+    x = np.zeros(n, dtype=np.float64)
 
     k = -1
     for i in range(0, n):
@@ -84,15 +85,15 @@ def next_seidel_iteration(a, b, prev_approx):
         for j in range(0, n):
             if j != i:
                 if c <= k:
-                    accum += a[i][j] * new_approx[c]
+                    accum += a[i][j] * x[c]
                     c += 1
                 else:
-                    accum += a[i][j] * prev_approx[j]
-        new_approx[i] = (b[i] - accum) / d
+                    accum += a[i][j] * prev_x[j]
+        x[i] = (b[i] - accum) / d
         k += 1
 
-    errs = abs(new_approx - prev_approx)
+    errs = abs(x - prev_x)
     abs_err = max(errs)
-    rel_err = max(errs / abs(new_approx))
+    rel_err = max(errs / abs(x))
 
-    return (new_approx, abs_err, rel_err)
+    return (x, abs_err, rel_err)

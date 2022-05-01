@@ -70,6 +70,7 @@ def seidel_method(a, b, init, tol, n, err_type="abs"):
 
         i += 1
         print(f"{i} | {xn} | abs_err={abs_err} | rel_err={rel_err}")
+
     return xn
 
 

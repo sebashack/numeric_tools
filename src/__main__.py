@@ -14,7 +14,13 @@ from matrix_utils import (
     gen_spd_mat,
 )
 from iterative_methods import jacobi_method, seidel_method
-from iterative_methods_mat_form import spectral_radius, jacobi_method_mat, tc_jacobi
+from iterative_methods_mat_form import (
+    spectral_radius,
+    jacobi_method_mat,
+    seidel_method_mat,
+    tc_jacobi,
+    tc_seidel,
+)
 from gaussian_elim_with_total_pivot import solve_by_gaussian_elim_with_total_pivot
 from regressive_substitution import regressive_substitution
 from simple_gaussian_elim import solve_by_simple_gaussian_elim
@@ -96,8 +102,9 @@ def main(argv):
     print(jacobi_method(a, b, init, tol, 15))
     print(jacobi_method_mat(a, b, init, tol, 15))
     print("--")
-
-    # print(seidel_method(a, b, init, tol, 15))
+    print(spectral_radius(tc_seidel(a, b)[0]))
+    print(seidel_method(a, b, init, tol, 15))
+    print(seidel_method_mat(a, b, init, tol, 15))
 
 
 if __name__ == "__main__":

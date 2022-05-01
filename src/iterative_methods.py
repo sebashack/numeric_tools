@@ -75,20 +75,15 @@ def seidel_method(a, b, init, tol, n, err_type="abs"):
 
 def next_seidel_iteration(a, b, prev_x):
     n = a.shape[0]
-    x = np.zeros(n, dtype=np.float64)
+    x = np.copy(prev_x)
 
     k = -1
     for i in range(0, n):
         d = a[i][i]
         accum = 0
-        c = 0
         for j in range(0, n):
             if j != i:
-                if c <= k:
-                    accum += a[i][j] * x[c]
-                    c += 1
-                else:
-                    accum += a[i][j] * prev_x[j]
+                accum += a[i][j] * x[j]
         x[i] = (b[i] - accum) / d
         k += 1
 

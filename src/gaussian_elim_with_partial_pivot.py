@@ -29,6 +29,7 @@ def solve_by_gaussian_elim_with_partial_pivot(a, b, print_k=False):
 # WARNING: This function mutates input matrix a
 def lu_factorization_with_partial_pivot(a, print_k=False):
     assert a.shape[0] == a.shape[1]
+    q = 0
 
     n = a.shape[0]
     permutation = np.identity(n, dtype=np.float64)
@@ -36,7 +37,8 @@ def lu_factorization_with_partial_pivot(a, print_k=False):
 
     # Stages
     for k in range(0, n - 1):
-        partial_pivot_with_permutation(a, lower_tri, permutation, k)
+        if partial_pivot_with_permutation(a, lower_tri, permutation, k):
+            q += 1
         # Compute multiplier for row in stage.
         for i in range(k + 1, n):
             multiplier = a[i][k] / a[k][k]
@@ -49,4 +51,13 @@ def lu_factorization_with_partial_pivot(a, print_k=False):
             print(a)
             print("----")
 
-    return (lower_tri, permutation)
+    return (lower_tri, permutation, q)
+
+
+# WARNING: This function mutates input matrix a
+def determinant_computation(a, print_k=False):
+    lower_tri, _, q = lu_factorization_with_partial_pivot(a, print_k)
+    det_l = np.prod(np.diagonal(lower_tri))
+    det_u = np.prod(np.diagonal(a))
+
+    return np.power(-1, q) * det_l * det_u

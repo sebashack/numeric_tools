@@ -2,10 +2,12 @@ import sys
 
 from gaussian_elim_with_partial_pivot import (
     solve_by_gaussian_elim_with_partial_pivot,
+    determinant_computation,
 )
 from matrix_utils import (
     set_print_opts,
     mk_vec,
+    mk_mat,
     print_solution,
     copy,
     gen_spd_mat,
@@ -48,7 +50,7 @@ def main(argv):
     print("--")
 
     xs = solve_by_lu_fac_with_partial_pivot(copy(a), copy(b))
-    print_solution(xs)
+    print_solution(xs[0])
     print("--")
 
     xs = solve_by_crout_fac(a, b)
@@ -61,6 +63,19 @@ def main(argv):
 
     xs = solve_by_cholesky_fac(a, b)
     print_solution(xs)
+    print("--")
+
+    m = mk_mat(
+        [
+            [1, 32, 1, 22, 2],
+            [2, 32, 32, 98, -8],
+            [3, 10, 1, 90, -3],
+            [3, 3, 5, 19, -1],
+            [3, 2, 5, 19, 100],
+        ]
+    )
+    det_m = determinant_computation(m)
+    print(det_m)
     print("--")
 
 

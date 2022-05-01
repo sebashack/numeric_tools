@@ -42,3 +42,6 @@ def partial_pivot_with_permutation(a, lower_tri, permutation, k):
                         lower_tri[k][s],
                         lower_tri[largest_row][s],
                     )
+            return True
+        else:
+            return False

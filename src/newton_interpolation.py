@@ -1,7 +1,6 @@
 import numpy as np
 
 
-
 # Points are (xn,yn) tuples
 def newton_interpolation(points):
     return interpolate(points, len(points) - 1)
@@ -72,4 +71,19 @@ def newton_interpolation_by_diffs(points):
         table[i][0] = points[i][0]
         table[i][1] = points[i][1]
 
-    return table
+    bs = [table[0][1]]
+    rows = table.shape[0]
+
+    c = 0
+    for j in range(2, n + 1):
+        for i in range(j - 1, rows):
+            num = table[i - 1][j - 1] - table[i][j - 1]
+            denom = table[i - (1 + c)][j - (2 + c)] - table[i][j - (2 + c)]
+            r = num / denom
+            table[i][j] = r
+            if j == i + 1:
+                bs.append(r)
+
+        c += 1
+
+    return (table, bs)

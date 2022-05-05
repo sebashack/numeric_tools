@@ -1,7 +1,12 @@
 import sys
 import math
 
-from newton_interpolation import newton_interpolation, print_bs, print_poly, newton_interpolation_by_diffs
+from newton_interpolation import (
+    newton_interpolation,
+    print_bs,
+    print_poly,
+    newton_interpolation_by_diffs,
+)
 from gaussian_elim_with_partial_pivot import (
     solve_by_gaussian_elim_with_partial_pivot,
     determinant_computation,
@@ -33,7 +38,7 @@ from factorization_solvers import (
     solve_by_simple_gaussian_fac,
 )
 
-set_print_opts(3)
+set_print_opts(4)
 
 
 def main(argv):
@@ -118,11 +123,12 @@ def main(argv):
         (1.8, 1.9607),
         (2, 2.5258),
     ]
-    # bs = newton_interpolation(points)
-    # print_bs(bs)
-    # print_poly(points, bs)
+    bs = newton_interpolation(points)
+    print_bs(bs)
+    print_poly(points, bs)
     tab = newton_interpolation_by_diffs(points)
-    print(tab)
+    print(tab[0])
+    print_poly(points, tab[1])
     print("--")
 
 

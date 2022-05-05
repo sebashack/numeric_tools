@@ -9,6 +9,7 @@ def newton_interpolation(points):
 def interpolate(points, k):
     assert k >= 0 and k <= len(points) - 1
     if k == 0:
+        print(f"b0 => {points[k][1]}")
         return [points[k][1]]
     else:
         xn = points[k][0]
@@ -17,16 +18,26 @@ def interpolate(points, k):
         product = 1
         numerator = 0
         m = len(bs) - 1
+        log_num = ""
+        log_denom = ""
         for i, b in enumerate(bs):
             accum = 1
+            log_num += f"b{i}"
             for j in range(0, i):
+                log_denom += f"({xn} - {points[j][0]})"
+                log_num += f"({xn} - {points[j][0]})"
                 accum *= xn - points[j][0]
 
             if i == m:
+                log_denom += f"({xn} - {points[k - 1][0]})"
                 product = accum * (xn - points[k - 1][0])
+            else:
+                log_num += "-"
             numerator += b * accum
 
         yn = points[k][1]
+        print(f"b{k} = [yn-{log_num}] / {log_denom}")
+
         bs.append((yn - numerator) / product)
     return bs
 

@@ -2,7 +2,6 @@ import numpy as np
 
 
 # Points are (xn,yn) tuples
-# m = n + 1
 def newton_interpolation(points):
     return interpolate(points, len(points) - 1)
 
@@ -16,14 +15,15 @@ def interpolate(points, k):
         bs = interpolate(points, k - 1)
 
         product = 1
-        for i in range(0, k):
-            product *= xn - points[i][0]
-
         numerator = 0
+        m = len(bs) - 1
         for i, b in enumerate(bs):
             accum = 1
             for j in range(0, i):
                 accum *= xn - points[j][0]
+
+            if i == m:
+                product = accum * (xn - points[k - 1][0])
             numerator += b * accum
 
         yn = points[k][1]

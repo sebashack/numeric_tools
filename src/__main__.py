@@ -1,6 +1,7 @@
 import sys
 import math
 
+from newton_interpolation import newton_interpolation, print_bs, print_poly
 from gaussian_elim_with_partial_pivot import (
     solve_by_gaussian_elim_with_partial_pivot,
     determinant_computation,
@@ -107,6 +108,19 @@ def main(argv):
     print(spectral_radius(tc_seidel(a, b)[0]))
     print_solution(seidel_method(a, b, init, tol, 15))
     print_solution(seidel_method_mat(a, b, init, tol, 15))
+    print("--")
+
+    points = [
+        (1, 0.6747),
+        (1.2, 0.8491),
+        (1.4, 1.1214),
+        (1.6, 1.4921),
+        (1.8, 1.9607),
+        (2, 2.5258),
+    ]
+    bs = newton_interpolation(points)
+    print_bs(bs)
+    print_poly(points, bs)
     print("--")
 
 

@@ -1,6 +1,7 @@
 import numpy as np
 
 
+
 # Points are (xn,yn) tuples
 def newton_interpolation(points):
     return interpolate(points, len(points) - 1)
@@ -9,7 +10,7 @@ def newton_interpolation(points):
 def interpolate(points, k):
     assert k >= 0 and k <= len(points) - 1
     if k == 0:
-        print(f"b0 => {points[k][1]}")
+        print(f"b0 = {points[k][1]}")
         return [points[k][1]]
     else:
         xn = points[k][0]
@@ -56,8 +57,19 @@ def print_poly(points, bs):
             prods += f"(x - {xi})"
 
         if i == n - 1:
-            print(f"({bs[i]}*{prods})", end="\n")
+            print(f"({bs[i]}{prods})", end="\n")
         elif i == 0:
             print(f"{bs[i]}", end=" + ")
         else:
-            print(f"({bs[i]}*{prods})", end=" + ")
+            print(f"({bs[i]}{prods})", end=" + ")
+
+
+def newton_interpolation_by_diffs(points):
+    n = len(points)
+    table = np.zeros((n, n + 1), dtype=np.float64)
+
+    for i, p in enumerate(points):
+        table[i][0] = points[i][0]
+        table[i][1] = points[i][1]
+
+    return table

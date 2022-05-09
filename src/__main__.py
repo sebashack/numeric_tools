@@ -55,23 +55,30 @@ def main(argv):
     # print("----")
     # incremental_search(f, 0, 0.00001, 100000)
 
-    pfondo = 3000000
-    pdeuda = 82000000
-    pinit = pdeuda * 0.3
-    i1 = 0.031
-    i2 = 0.0236
-    j = 0.015
+    pfondo = 20000000
+    pdeuda = 146000000
+    pinit = pdeuda * 0.4
+    i1 = 0.015
+    i2 = 0.018
+    j = 0.02
 
     print(pinit)
-    a1 = (pdeuda - pinit) * ((i1 - j) / (1 - math.pow((1 + j) / (1 + i1), 60)))
-    z = (pinit / math.pow(1 + i2, 48)) + (((a1 / (i2 - j)) * (1 - math.pow((1 + j) / (1 + i2), 60))) / math.pow(1 + i2, 48))
-    d = (math.pow(1 + i2, 108) - 1) / (math.pow(1 + i2, 108) * i2)
-    print((z - pfondo) / d)
+    a1 = (pdeuda - pinit) * ((i1 - j) / (1 - math.pow((1 + j) / (1 + i1), 120)))
+    print(a1)
 
+    z = (pinit / math.pow(1 + i2, 60)) + (((a1 / (i2 - j)) * (1 - math.pow((1 + j) / (1 + i2), 120))) / math.pow(1 + i2, 60))
+    d = (math.pow(1 + i2, 180) - 1) / (math.pow(1 + i2, 180) * i2)
+    a = (z - pfondo) / d
 
+    print(f"pdeuda = {pdeuda}")
+    print(f"pfondo = {pfondo}")
+    print(f"pinit = {pinit}")
+    print(f"pdeuda = {pdeuda}")
+    print(f"a1 = {a1}")
+    print(f"z = {z}")
+    print(f"d = {d}")
+    print(f"a = {a}")
 
-    # print(a1)
-    # print(a)
 
 
 

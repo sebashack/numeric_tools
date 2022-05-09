@@ -13,35 +13,66 @@ from multiple_roots import multiple_roots
 
 
 def main(argv):
-    def g(x):
-        return math.pow(math.e, -x)
+    # def f(x):
+    #     v = (1/x) + 0.4 - (1.74 * (math.log(50 * math.sqrt(x))))
+    #     return v
 
-    def dg(x):
-        return -math.pow(math.e, -x)
+    # def g(x):
+    #     v = -0.4 + (1.74 * (math.log(50 * math.sqrt(x))))
+    #     return 1 / v
 
-    def f(x):
-        return math.pow(math.e, -x) - x
+    # tolerance = 5 * math.pow(10, -3)
+    # fixed_point(f, g, None, 0.5, tolerance, 100, err_type="rel")
 
-    def df(x):
-        return -math.pow(math.e, -x) - 1
+    # print(0.0009223349719091456 < tolerance)
+    # def g(x):
+    #     return math.pow(math.e, -x)
 
-    def ddf(x):
-        return -math.pow(math.e, x)
+    # def dg(x):
+    #     return -math.pow(math.e, -x)
 
-    tolerance = 5 * math.pow(10, -5)
-    secant(f, (0, 1), tolerance, 100, err_type="abs")
-    print("----")
-    multiple_roots(f, df, ddf, 0, tolerance, 100, err_type="abs")
-    print("----")
-    newton(f, df, 0, tolerance, 100, err_type="abs")
-    print("----")
-    fixed_point(f, g, dg, 0, tolerance, 100, err_type="abs")
-    print("----")
-    false_rule(f, -2, 5.0, tolerance, err_type="abs")
-    print("----")
-    bisection(f, -2, 5.0, tolerance, err_type="abs")
-    print("----")
-    incremental_search(f, 0, 0.00001, 100000)
+    # def f(x):
+    #     return math.pow(math.e, -x) - x
+
+    # def df(x):
+    #     return -math.pow(math.e, -x) - 1
+
+    # def ddf(x):
+    #     return math.pow(math.e, -x)
+
+    # tolerance = 5 * math.pow(10, -5)
+    # secant(f, (0, 1), tolerance, 100, err_type="abs")
+    # print("----")
+    # multiple_roots(f, df, ddf, 0, tolerance, 100, err_type="abs")
+    # print("----")
+    # newton(f, df, 0, tolerance, 100, err_type="abs")
+    # print("----")
+    # fixed_point(f, g, dg, 0, tolerance, 100, err_type="abs")
+    # print("----")
+    # false_rule(f, -2, 5.0, tolerance, err_type="abs")
+    # print("----")
+    # bisection(f, -2, 5.0, tolerance, err_type="abs")
+    # print("----")
+    # incremental_search(f, 0, 0.00001, 100000)
+
+    pfondo = 3000000
+    pdeuda = 82000000
+    pinit = pdeuda * 0.3
+    i1 = 0.031
+    i2 = 0.0236
+    j = 0.015
+
+    print(pinit)
+    a1 = (pdeuda - pinit) * ((i1 - j) / (1 - math.pow((1 + j) / (1 + i1), 60)))
+    z = (pinit / math.pow(1 + i2, 48)) + (((a1 / (i2 - j)) * (1 - math.pow((1 + j) / (1 + i2), 60))) / math.pow(1 + i2, 48))
+    d = (math.pow(1 + i2, 108) - 1) / (math.pow(1 + i2, 108) * i2)
+    print((z - pfondo) / d)
+
+
+
+    # print(a1)
+    # print(a)
+
 
 
 if __name__ == "__main__":

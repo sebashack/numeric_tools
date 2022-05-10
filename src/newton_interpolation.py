@@ -1,4 +1,10 @@
 import numpy as np
+from sympy import simplify
+from sympy.parsing.sympy_parser import (
+    parse_expr,
+    standard_transformations,
+    implicit_multiplication,
+)
 
 
 # Points are (xn,yn) tuples
@@ -47,8 +53,9 @@ def print_bs(bs):
         print(f"b{i} = {bs[i]}")
 
 
-def print_poly(points, bs):
+def gen_poly(points, bs):
     n = len(bs)
+    poly = ""
     for i in range(0, n):
         prods = ""
         for j in range(0, i):
@@ -56,11 +63,19 @@ def print_poly(points, bs):
             prods += f"(x - {xi})"
 
         if i == n - 1:
-            print(f"({bs[i]}{prods})", end="\n")
+            poly += f"({bs[i]}{prods})"
         elif i == 0:
-            print(f"{bs[i]}", end=" + ")
+            poly += f"{bs[i]} + "
         else:
-            print(f"({bs[i]}{prods})", end=" + ")
+            poly += f"({bs[i]}{prods}) + "
+    return poly
+
+
+def simp_poly(poly):
+    expr = parse_expr(
+        poly, transformations=standard_transformations + (implicit_multiplication,)
+    )
+    return "{}".format(simplify(expr))
 
 
 def newton_interpolation_by_diffs(points):

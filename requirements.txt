@@ -2,3 +2,4 @@ matplotlib==3.5.1
 numpy==1.20.1
 baseconvert==1.0.0a4
 scikit-learn==1.0.2
+sympy==1.10.1

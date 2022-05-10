@@ -4,7 +4,8 @@ import math
 from newton_interpolation import (
     newton_interpolation,
     print_bs,
-    print_poly,
+    gen_poly,
+    simp_poly,
     newton_interpolation_by_diffs,
 )
 from gaussian_elim_with_partial_pivot import (
@@ -125,10 +126,15 @@ def main(argv):
     ]
     bs = newton_interpolation(points)
     print_bs(bs)
-    print_poly(points, bs)
+    poly = gen_poly(points, bs)
+    print(poly)
+    print(simp_poly(poly))
+    print("--")
     tab = newton_interpolation_by_diffs(points)
     print(tab[0])
-    print_poly(points, tab[1])
+    poly = gen_poly(points, tab[1])
+    print(poly)
+    print(simp_poly(poly))
     print("--")
 
 

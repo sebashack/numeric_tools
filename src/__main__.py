@@ -149,30 +149,18 @@ def main(argv):
         (4.5, 1.0),
         (7.0, 2.5),
         (9.0, 0.5),
+        (11, 2),
+        (15, 1.5),
     ]
-    # sps = linear_splines(points)
-    # print(linear_eqs_strs(sps[0], sps[1]))
+    eqs, intervals = linear_splines(points)
+    for e in linear_eqs_strs(eqs, intervals):
+        print(e)
 
-    # print("--")
+    print("--")
 
-    sols = quadratic_splines(points)
-    print(quadratic_eqs_strs(sols, points))
-
-    # a = mk_mat(
-    #     [
-    #         [1.5, 0, 0, 0, 0],
-    #         [0, 2.5, 6.25, 0, 0],
-    #         [0, 0, 0, 2, 4],
-    #         [1, -1, 0, 0, 0],
-    #         [0, 1, 5, -1, 0],
-    #     ]
-    # )
-    # b = mk_vec([-1.5, 1.5, -2, 0, 0])
-
-    # ab = solve_by_gaussian_elim_with_partial_pivot(a, b)
-    # xs = regressive_substitution(ab)
-    # print(xs)
-    # print("--")
+    sols, intervals = quadratic_splines(points)
+    for e in quadratic_eqs_strs(sols, points, intervals):
+        print(e)
 
 
 if __name__ == "__main__":

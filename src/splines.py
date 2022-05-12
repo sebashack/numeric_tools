@@ -35,10 +35,14 @@ def quadratic_splines(points):
     hs = []
     zs = np.zeros(dim, dtype=np.float64)
     system = np.zeros((dim, dim), dtype=np.float64)
+    intervals = []
 
     col_shift = 0
     for i, (p0, p1) in enumerate(zip(points_, points_[1:])):
-        h = p1[0] - p0[0]
+        x0, f0 = p0
+        x1, f1 = p1
+        intervals.append((x0, x1))
+        h = x1 - x0
 
         system[i][col_shift] = h
         if i == 0:
@@ -48,7 +52,7 @@ def quadratic_splines(points):
             col_shift += 2
 
         hs.append(h)
-        zs[i] = p1[1] - p0[1]
+        zs[i] = f1 - f0
 
     col_shift = 0
     for i in range(num_intervals, dim):
@@ -64,10 +68,10 @@ def quadratic_splines(points):
     ab = solve_by_gaussian_elim_with_partial_pivot(system, zs)
     sols = regressive_substitution(ab)
 
-    return sols
+    return (sols, intervals)
 
 
-def quadratic_eqs_strs(sols, points):
+def quadratic_eqs_strs(sols, points, intervals):
     i = 0
     k = 0
     n = len(sols)
@@ -81,6 +85,7 @@ def quadratic_eqs_strs(sols, points):
         bi = sols[k]
         ci = None
         xi = points[i][0]
+        intv = intervals[i]
         if i == 0:
             ci = 0
             k += 1
@@ -89,9 +94,11 @@ def quadratic_eqs_strs(sols, points):
             k += 2
 
         if ci == 0:
-            eqs.append(f"{ai} + {bi}(x - {xi})")
+            eqs.append(f"{ai} + {bi}(x - {xi}), [{intv[0]},{intv[1]}]")
         else:
-            eqs.append(f"{ai} + {bi}(x - {xi}) + {ci}(x - {xi})^2")
+            eqs.append(
+                f"{ai} + {bi}(x - {xi}) + {ci}(x - {xi})^2, [{intv[0]},{intv[1]}]"
+            )
         i += 1
 
     return eqs

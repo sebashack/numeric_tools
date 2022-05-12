@@ -1,7 +1,12 @@
 import sys
 import math
 
-from splines import linear_splines, linear_eqs_strs
+from splines import (
+    linear_splines,
+    linear_eqs_strs,
+    quadratic_splines,
+    print_quadratic_coefficients,
+)
 from newton_interpolation import (
     newton_interpolation,
     print_bs,
@@ -40,7 +45,7 @@ from factorization_solvers import (
     solve_by_simple_gaussian_fac,
 )
 
-set_print_opts(4)
+set_print_opts(3)
 
 
 def main(argv):
@@ -139,13 +144,35 @@ def main(argv):
     # print("--")
 
     points = [
-        (3.0, 2.5),
-        (4.5, 1.0),
-        (7.0, 2.5),
-        (9.0, 0.5),
+        (-1, 0.038),
+        (-0.8, 0.058),
+        (-0.60, 0.10),
+        (-0.4, 0.20),
     ]
-    sps = linear_splines(points)
-    print(linear_eqs_strs(sps[0], sps[1]))
+    # sps = linear_splines(points)
+    # print(linear_eqs_strs(sps[0], sps[1]))
+
+    # print("--")
+
+    cs = quadratic_splines(points)
+    print(cs)
+    print_quadratic_coefficients(points, cs)
+
+    # a = mk_mat(
+    #     [
+    #         [1.5, 0, 0, 0, 0],
+    #         [0, 2.5, 6.25, 0, 0],
+    #         [0, 0, 0, 2, 4],
+    #         [1, -1, 0, 0, 0],
+    #         [0, 1, 5, -1, 0],
+    #     ]
+    # )
+    # b = mk_vec([-1.5, 1.5, -2, 0, 0])
+
+    # ab = solve_by_gaussian_elim_with_partial_pivot(a, b)
+    # xs = regressive_substitution(ab)
+    # print(xs)
+    # print("--")
 
 
 if __name__ == "__main__":

@@ -52,12 +52,11 @@ def quadratic_splines(points):
 
     col_shift = 0
     for i in range(num_intervals, dim):
+        system[i][col_shift] = 1
         if i == num_intervals:
-            system[i][col_shift] = 1
             system[i][col_shift + 1] = -1
             col_shift += 1
         else:
-            system[i][col_shift] = 1
             system[i][col_shift + 1] = 2 * hs[i - num_intervals]
             system[i][col_shift + 2] = -1
             col_shift += 2
@@ -68,6 +67,36 @@ def quadratic_splines(points):
     return sols
 
 
+def quadratic_eqs_strs(sols, points):
+    i = 0
+    k = 0
+    n = len(sols)
+    eqs = []
+
+    while True:
+        if k >= n:
+            break
+
+        ai = points[i][1]
+        bi = sols[k]
+        ci = None
+        xi = points[i][0]
+        if i == 0:
+            ci = 0
+            k += 1
+        else:
+            ci = sols[k + 1]
+            k += 2
+
+        if ci == 0:
+            eqs.append(f"{ai} + {bi}(x - {xi})")
+        else:
+            eqs.append(f"{ai} + {bi}(x - {xi}) + {ci}(x - {xi})^2")
+        i += 1
+
+    return eqs
+
+
 def print_quadratic_coefficients(points, sols):
     i = 0
     k = 0
@@ -76,14 +105,12 @@ def print_quadratic_coefficients(points, sols):
         if k >= n:
             break
 
+        print(f"a{i + 1} = {points[i][1]}")
+        print(f"b{i + 1} = {sols[k]}")
         if i == 0:
-            print(f"a{i + 1} = {points[i][1]}")
-            print(f"b{i + 1} = {sols[k]}")
             print(f"c{i + 1} = 0")
             k += 1
         else:
-            print(f"a{i + 1} = {points[i][1]}")
-            print(f"b{i + 1} = {sols[k]}")
             print(f"c{i + 1} = {sols[k + 1]}")
             k += 2
         i += 1

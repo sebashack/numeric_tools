@@ -6,6 +6,7 @@ from splines import (
     linear_eqs_strs,
     quadratic_splines,
     print_quadratic_coefficients,
+    quadratic_eqs_strs,
 )
 from newton_interpolation import (
     newton_interpolation,
@@ -144,19 +145,18 @@ def main(argv):
     # print("--")
 
     points = [
-        (-1, 0.038),
-        (-0.8, 0.058),
-        (-0.60, 0.10),
-        (-0.4, 0.20),
+        (3.0, 2.5),
+        (4.5, 1.0),
+        (7.0, 2.5),
+        (9.0, 0.5),
     ]
     # sps = linear_splines(points)
     # print(linear_eqs_strs(sps[0], sps[1]))
 
     # print("--")
 
-    cs = quadratic_splines(points)
-    print(cs)
-    print_quadratic_coefficients(points, cs)
+    sols = quadratic_splines(points)
+    print(quadratic_eqs_strs(sols, points))
 
     # a = mk_mat(
     #     [

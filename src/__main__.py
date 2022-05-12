@@ -1,6 +1,7 @@
 import sys
 import math
 
+from splines import linear_splines, linear_eqs_strs
 from newton_interpolation import (
     newton_interpolation,
     print_bs,
@@ -116,26 +117,35 @@ def main(argv):
     # print_solution(seidel_method_mat(a, b, init, tol, 15))
     # print("--")
 
+    # points = [
+    #     (1, 0.6747),
+    #     (1.2, 0.8491),
+    #     (1.4, 1.1214),
+    #     (1.6, 1.4921),
+    #     (1.8, 1.9607),
+    #     (2, 2.5258),
+    # ]
+    # bs = newton_interpolation(points)
+    # print_bs(bs)
+    # poly = gen_poly(points, bs)
+    # print(poly)
+    # print(simp_poly(poly))
+    # print("--")
+    # tab = newton_interpolation_by_diffs(points)
+    # print(tab[0])
+    # poly = gen_poly(points, tab[1])
+    # print(poly)
+    # print(simp_poly(poly))
+    # print("--")
+
     points = [
-        (1, 0.6747),
-        (1.2, 0.8491),
-        (1.4, 1.1214),
-        (1.6, 1.4921),
-        (1.8, 1.9607),
-        (2, 2.5258),
+        (3.0, 2.5),
+        (4.5, 1.0),
+        (7.0, 2.5),
+        (9.0, 0.5),
     ]
-    bs = newton_interpolation(points)
-    print_bs(bs)
-    poly = gen_poly(points, bs)
-    print(poly)
-    print(simp_poly(poly))
-    print("--")
-    tab = newton_interpolation_by_diffs(points)
-    print(tab[0])
-    poly = gen_poly(points, tab[1])
-    print(poly)
-    print(simp_poly(poly))
-    print("--")
+    sps = linear_splines(points)
+    print(linear_eqs_strs(sps[0], sps[1]))
 
 
 if __name__ == "__main__":

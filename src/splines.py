@@ -94,10 +94,10 @@ def quadratic_eqs_strs(sols, points, intervals):
             k += 2
 
         if ci == 0:
-            eqs.append(f"{ai} + {bi}(x - {xi}), [{intv[0]},{intv[1]}]")
+            eqs.append(f"s{i} = {ai} + {bi}(x - {xi}), [{intv[0]},{intv[1]}]")
         else:
             eqs.append(
-                f"{ai} + {bi}(x - {xi}) + {ci}(x - {xi})^2, [{intv[0]},{intv[1]}]"
+                f"s{i} = {ai} + {bi}(x - {xi}) + {ci}(x - {xi})^2, [{intv[0]},{intv[1]}]"
             )
         i += 1
 

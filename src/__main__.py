@@ -50,117 +50,52 @@ set_print_opts(3)
 
 
 def main(argv):
-    # a = gen_spd_mat(18, seed=0)
-    # b = mk_vec([30, 43, 1, -10, 30, 7, 10, -13, 30, 8, 1, -10, 50, 8, 100, -10, 21, 32])
-    # init = mk_vec([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    p = 94500000
+    i1 = 0.0253
+    i2 = 0.0278
+    i3 = 0.0897
+    j = 0.01
+    cenp = 20000000
+    g = 40000
 
-    # ab = solve_by_simple_gaussian_elim(a, b)
-    # xs = regressive_substitution(ab)
-    # print_solution(xs)
-    # print("--")
+    p36 = p * math.pow(1 + i1, 36)
 
-    # ab = solve_by_gaussian_elim_with_partial_pivot(a, b)
-    # xs = regressive_substitution(ab)
-    # print_solution(xs)
-    # print("--")
+    zi1 = (math.pow(1 + i1, 36) - math.pow(1 + j, 36)) / (i1 - j)
 
-    # ab, labels = solve_by_gaussian_elim_with_total_pivot(a, b)
-    # xs = regressive_substitution(ab, labels)
-    # print_solution(xs)
-    # print("--")
+    zi2 = (1 - math.pow((1 + j) / (1 + i2), 60)) / (i2 - j)
 
-    # xs = solve_by_simple_gaussian_fac(copy(a), copy(b))
-    # print_solution(xs)
-    # print("--")
+    z = math.pow(1 + j, 36 - 1) * (1 + j)
 
-    # xs = solve_by_lu_fac_with_partial_pivot(copy(a), copy(b))
-    # print_solution(xs[0])
-    # print("--")
+    a1__ = p36 / ((z * zi2) + zi1)
+    a1_ = a1__ * z
 
-    # xs = solve_by_crout_fac(a, b)
-    # print_solution(xs)
-    # print("--")
+    fi136 = a1__ * zi1
+    pi236 = a1_ * (1 - math.pow((1 + j) / (1 + i2), 18)) / (i2 - j)
+    s = (fi136 + pi236) * math.pow(1 + i2, 18)
+    p54 = p36 * math.pow(1 + i2 , 18)
+    p_ = p54 - s - cenp
+    p__ = p_ * math.pow(1 + i3, 2)
 
-    # xs = solve_by_dolittle_fac(a, b)
-    # print_solution(xs)
-    # print("--")
+    ag = g * ((1/i3) - (20 / (math.pow(1 + i3, 20) - 1)))
+    at = p__ * ((math.pow(1 + i3, 20) * i3) / (math.pow(1 + i3, 20) - 1))
+    a1 = at - ag
 
-    # xs = solve_by_cholesky_fac(a, b)
-    # print_solution(xs)
-    # print("--")
-
-    # m = mk_mat(
-    #     [
-    #         [1, 32, 1, 22, 2],
-    #         [2, 32, 32, 98, -8],
-    #         [3, 10, 1, 90, -3],
-    #         [3, 3, 5, 19, -1],
-    #         [3, 2, 5, 19, 100],
-    #     ]
-    # )
-    # det_m = determinant_computation(m)
-    # print(det_m)
-    # print("--")
-
-    # a = mk_mat(
-    #     [
-    #         [45, 13, -4, 8],
-    #         [-5, -28, 4, -14],
-    #         [9, 15, 63, -7],
-    #         [2, 3, -8, -42],
-    #     ]
-    # )
-    # b = mk_vec([-25, 82, 75, -43])
-    # init = mk_vec([2, 2, 2, 2])
-    # tol = 0.5 * math.pow(10, -5)
-    # print(spectral_radius(tc_jacobi(a, b)[0]))
-    # print_solution(jacobi_method(a, b, init, tol, 15))
-    # print_solution(jacobi_method_mat(a, b, init, tol, 15))
-    # print("--")
-
-    # print(spectral_radius(tc_seidel(a, b)[0]))
-    # print_solution(seidel_method(a, b, init, tol, 15))
-    # print_solution(seidel_method_mat(a, b, init, tol, 15))
-    # print("--")
-
-    # points = [
-    #     (1, 0.6747),
-    #     (1.2, 0.8491),
-    #     (1.4, 1.1214),
-    #     (1.6, 1.4921),
-    #     (1.8, 1.9607),
-    #     (2, 2.5258),
-    # ]
-    # bs = newton_interpolation(points)
-    # print_bs(bs)
-    # poly = gen_poly(points, bs)
-    # print(poly)
-    # print(simp_poly(poly))
-    # print("--")
-    # tab = newton_interpolation_by_diffs(points)
-    # print(tab[0])
-    # poly = gen_poly(points, tab[1])
-    # print(poly)
-    # print(simp_poly(poly))
-    # print("--")
-
-    points = [
-        (3.0, 2.5),
-        (4.5, 1.0),
-        (7.0, 2.5),
-        (9.0, 0.5),
-        (11, 2),
-        (15, 1.5),
-    ]
-    eqs, intervals = linear_splines(points)
-    for e in linear_eqs_strs(eqs, intervals):
-        print(e)
-
-    print("--")
-
-    sols, intervals = quadratic_splines(points)
-    for e in quadratic_eqs_strs(sols, points, intervals):
-        print(e)
+    # print(p36)
+    # print(zi2)
+    # print(zi1)
+    # print(z)
+    # print(a1__)
+    # print(a1_)
+    # print(p54)
+    # print(fi136)
+    # print(pi236)
+    # print(s)
+    # print(p54)
+    # print(p_)
+    # print(p__)
+    # print(ag)
+    # print(at)
+    print(a1)
 
 
 if __name__ == "__main__":
